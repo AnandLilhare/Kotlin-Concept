@@ -1,0 +1,97 @@
+
+Data Clases
+
+- Each object has a function named equals because its class inherits the function from a class named Any.
+- Class Any is the mother of all classes: the ultimate superclass of everything.
+- Every class you define is a subclass of Any without you ever having to say it
+
+Note: - Every class is a subclass of the Any class, and inherits its behavior. Every class IS-A type of Any without you having to say so
+
+Having Any as the ultimate superclass has two key benefits:
+
+*
+It ensures that every class inherits common behavior.
+
+The Any class defines important behavior that the system relies on, and as every class is a subclass of Any, this behavior is inherited by every object you create. The Any class defines a function named equals, for example, which means that every object automatically inherits this function.
+
+* It means you can use polymorphism with any object.
+
+Every class is a subclass of Any, so every object you create has Any as its ultimate supertype. This means that you can create a function with Any parameters, or an Any return type, so that it will work with all types of object. It also means that you can create polymorphic arrays to hold objects of any type using code like this:
+
+The common behavior defined by Any
+
+* equals(any: Any): Boolean
+  Tells you if two objects are considered “equal”. By default, it returns true if it’s used to test the same object, and false if it’s used to test separate objects. Behind the scenes, the equals function gets called each time you use the == operator.
+
+* hashCode(): Int
+  Returns a hash code value for the object. They’re often used by certain data structures to store and retrieve values more efficiently.
+
+* toString(): String
+  Returns a String message that represents the object. By default, this is the name of the class and some other number that we rarely care about.
+
+Data classes define componentN functions
+When you define a data class, the compiler automatically adds a set of functions to the class that you can use as an alternate way of accessing its object’s property values. These are known as componentN functions, where N represents the number of the property whose value you wish to retrieve (in order of declaration).
+
+If you wanted to retrieve the value of the object’s first property (its title property), you could do this by calling the object’s component1() function like this:
+
+val title = r1.component1()
+
+== checks for object equivalence.
+
+=== checks for object identity.
+
+
+Note:
+Every data class must have a primary constructor, which must define at least one parameter. Each parameter must be prefixed with val or var.
+
+Overloading a function
+---------------------
+Function overloading is when you have two or more functions with the same name but with different argument lists.
+
+Dos and don’ts for function overloading:
+
+* The return types can be different.
+
+You’re free to change the return type of an overloaded function, so long as the argument lists are different
+
+* You can’t change ONLY the return type.
+
+If only the return type is different, it’s not a valid overload—the compiler will assume you’re trying to override the function. And even that won’t be legal unless the return type is a subtype of the return type declared in the superclass. To overload a function, you MUST change the argument list, although you can change the return type to anything.
+
+
+Bullet Point
+----------
+The behavior of the == operator is determined by the implementation of the equals function.
+
+Every class inherits an equals, hashCode and toString function from the Any class because every class is a subclass of Any. These functions can be overridden.
+
+The equals function tells you if two objects are considered “equal”. By default, it returns true if it’s used to test the same underlying object, and false if it’s used to test separate objects.
+
+The === operator lets you check whether two variables refer to the same underlying object irrespective of the object’s type.
+
+A data class lets you create objects whose main purpose is to store data. It automatically overrides the equals, hashCode and toString functions, and includes copy and componentN functions.
+
+The data class equals function checks for equality by looking at each object’s property values. If two data objects hold the same data, the equals function returns true.
+
+The copy function lets you create a new copy of a data object, altering some of its properties. The original object remains intact.
+
+componentN functions let you destructure data objects into their component property values.
+
+A data class generates its functions by considering the properties defined in its primary constructor.
+
+Constructors and functions can have default parameter values. You can call a constructor or function by passing parameter values in order of declaration or by using named arguments.
+
+Classes can have secondary constructors.
+
+An overloaded function is a different function that happens to have the same function name. An overloaded function must have different arguments, but may have a different return type.
+
+
+RULES FOR DATA CLASSES
+----------------
+* There must be a primary constructor.
+
+* The primary constructor must define one or more parameters.
+
+* Each parameter must be marked as val or var.
+
+*Data classes must not be open or abstract.

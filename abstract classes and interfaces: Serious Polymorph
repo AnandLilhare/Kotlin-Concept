@@ -1,0 +1,57 @@
+abstract classes and interfaces: Serious Polymorphism
+
+
+1. If a superclass is marked as abstract, you don’t need to declare that it’s open
+2. An abstract class can contain abstract and non-abstract properties and functions. It’s possible for an abstract class to have no abstract members.
+3. Abstract properties and functions don’t need to be marked as open.
+4. If you mark a property or function as abstract, you must mark the class as abstract too.
+
+Interface
+An interface lets you define common behavior OUTSIDE a superclass hierarchy
+
+Interfaces are used to define a protocol for common behavior so that you can benefit from polymorphism without having to rely on a strict inheritance structure. Interfaces are similar to abstract classes in that they can’t be instantiated, and they can define abstract or concrete functions and properties, but there’s one key difference: a class can implement multiple interfaces, but can only inherit from a single direct superclass. So using interfaces can provide the same benefits as using abstract classes, but with more flexibility.
+
+How do you know whether to make a class, a subclass, an abstract class, or an interface?
+
+A Kotlin class can have only one parent (superclass), and that parent class defines who you are. But you can implement multiple interfaces, and those interfaces define the roles that you can play.
+
+* Make a class with no superclass when your new class doesn’t pass the IS-A test for any other type.
+* Make a subclass that inherits from a superclass when you need to make a more specific version of a class and need to override or add new behaviors.
+* Make an abstract class when you want to define a template for a group of subclasses. Make the class abstract when you want to guarantee that nobody can make objects of that type.
+* Make an interface when you want to define common behavior, or a role that other classes can play, regardless of where these classes are in the inheritance tree.
+
+
+
+Noted:
+
+- An abstract class can’t be instantiated. It can contain both abstract and non-abstract properties and functions.
+
+- Any class that contains an abstract property or function must be declared abstract.
+
+- A class that’s not abstract is called concrete.
+
+- You implement abstract properties and functions by overriding them.
+
+-  abstract properties and functions must be overridden in any concrete subclasses.
+
+- An interface lets you define common behavior outside a superclass hierarchy so that independent classes can still benefit from polymorphism.
+
+- Interfaces can have abstract or non-abstract functions.
+
+- Interfaces properties can be abstract, or they can have getters and setters. They can’t be initialized, and they don’t have access to a backing field.
+
+- A class can implement multiple interfaces.
+
+- If a subclass inherits from a superclass (or implements an interface) named A, you can use the code:
+
+- super<A>.myFunction
+  to call the implementation of myFunction that’s defined in A.
+
+- If a variable holds a reference to an object, you can use the is operator to check the type of the underlying object.
+
+- The is operator performs a smart cast when the compiler can guarantee that the underlying object can’t have changed between the type check and its usage.
+
+- The as operator lets you perform an explicit cast.
+
+- A when expression lets you compare a variable against an exhaustive set of different options.
+

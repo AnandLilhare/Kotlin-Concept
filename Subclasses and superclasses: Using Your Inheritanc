@@ -1,0 +1,106 @@
+Subclasses and superclasses: Using Your Inheritance.
+
+----------------------
+Use IS-A to test your class hierarchy
+
+When you’re designing a class hierarchy, you can test if one thing should be a subclass of another by applying the IS-A test. Simply ask yourself: “Does it make sense to say type X IS-A type Y?” If it does, then both classes should probably live in the same inheritance hierarchy, as the chances are, they have the same or overlapping behaviors. If it doesn’t make sense, then you know that you need to think again.
+
+Use HAS-A to test for other relationships
+
+1. if you define a property in the superclass using val, you must override it in the subclass if you want to assign a different value to it.
+
+Overriding properties lets you do more than assign default values.
+
+* You can override a property’s getter and setter.
+
+In the previous chapter, you learned how to add custom getters and setters to properties. If you want a property to have a different getter or setter to the one it inherits from the superclass, you can define new ones by overriding the property and adding the getter and setter to the subclass.
+
+* You can override a val property in the superclass with a var property in the subclass.
+
+If a property in the superclass has been defined using val, you can override it with a var property in the subclass. To do this, simply override the property and declare it to be a var. Note that this only works one way; if you try to override a var property with a val, the compiler will get upset and refuse to compile your code.
+
+* You can override a property’s type with one of the superclass version’s subtypes.
+
+When you override a property, its type must match the type of the superclass version of the property, or be one of its subtypes.
+
+Q: Can I override a property that’s been defined in the superclass constructor?
+A: Yes. Any properties you define in the class constructor can be prefixed with open or override, so you can overide properties that have been defined in the superclass constructor.
+
+Q: Why do I have to prefix classes, properties and functions with open if I want to override them? You don’t in Java.
+A: In Kotlin, you can only inherit from superclasses and override their properties and functions if they’ve been prefixed with open. This is the opposite way round to how it works in Java.
+
+In Java, classes are open by default, and you use final to stop other classes inheriting from them or overriding their instance variables and methods.
+
+Q: Why does Kotlin take the opposite approach to Java?
+A: Because the open prefix makes it much more explicit as to which classes have been designed to be used as superclasses, and which properties and functions can be overridden. This approach corresponds to one of the principles from Joshua Bloch’s book Effective Java: “Design and document for inheritance or else prohibit it.”
+
+
+The rules for overriding functions
+
+* The function parameters in the subclass must match those in the superclass.
+
+So if, for example, a function in the superclass takes three Int arguments, the overridden function in the subclass must also take three Int arguments or the code won’t compile.
+
+* The function return types must be compatible.
+
+Whatever the superclass function declares as a return type, the overriding function must return either the same type, or a subclass type. A subclass type is guaranteed to do anything its superclass declares, so it’s safe to return a subclass where the superclass is expected.
+
+Q: Why does Kotlin let me override a val property with a var?
+A: Back in Chapter 4, we said that when you create a val property, the compiler secretly adds a getter for it. And when you create a var property, the compiler adds both a getter and a setter.
+
+When you override a val property with a var, you’re effectively asking the compiler to add an extra setter to the property in the subclass. This is valid, so the code compiles
+
+Q: Can I override a var property with a val?
+A: No. If you try to override a var property with a val, your code won’t compile.
+
+When you define a class hierarchy, you’re guaranteeing that you can do the same things to a subclass that you can do to a superclass. And if you try to override a var property with a val, you’re telling the compiler that you no longer want to be able to update a property’s value. This breaks the common protocol between the superclass and its subtypes, so the code won’t compile.
+
+Q: You said that when you call a function on a variable, the system walks up the inheritance hierarchy looking for a match. What happens if the system doesn’t find one?
+A: You don’t have to worry about the system not finding a matching function.
+
+The compiler guarantees that a particular function is callable for a specific variable type, but it doesn’t care from which class that function comes from at runtime. If we were to call the sleep function on a Wolf, for example, the compiler checks that the sleep function exists, but it doesn’t care that the function is defined in (and inherited from) class Animal.
+
+Remember that if a class inherits a function, it has the function. Where the inherited function is defined makes no difference to the compiler. But at runtime, the system will always pick the right one, the most specific version of the function for that particular object.
+
+Q: Can a subclass have more than one direct superclass?
+A: No. Multiple inheritance isn’t allowed in Kotlin, so each subclass can have only one direct superclass. We’ll look at this in more detail in
+
+Q: When I override a function in a subclass, the function parameter types must be the same. Can I define a function that has the same name as the one in the superclass but with different parameter types?
+A: Yes, you can. You can define multiple functions with the same name, just so long as the parameter types are different. This is called overloading (not overriding) and it has nothing to do with inheritance.
+
+Q: Can you explain polymorphism again?
+A: Sure. Polymorphism is the ability to use any subtype object in place of its supertype. As different subclasses can have different implementations of the same function, it allows each object to respond to function calls in the way that’s most appropriate for each object.
+
+
+Bullet Point
+A superclass contains common properties and functions that are inherited by one or more subclasses.
+
+A subclass can include extra properties and functions that aren’t in the superclass, and can override the things it inherits.
+
+Use the IS-A test to verify that your inheritance is valid. If X is a subclass of Y, then X IS-A Y must make sense.
+
+The IS-A relationship works in only one direction. A Hippo is an Animal, but not all Animals are Hippos.
+
+If class B is a subclass of class A, and class C is a subclass of class B, class C passes the IS-A test for both B and A.
+
+Before you can use a class as a superclass, you must declare it open. You must also declare any properties and functions you want to override as open.
+
+Use : to specify a subclass’s superclass.
+
+If the superclass has a primary constructor, then you must call it in the subclass header.
+
+Override properties and functions in the subclass by prefixing them with override. When you override a property, its type must be compatible with that of the superclass property. When you override a function, its parameter list must stay the same, and its return type must be compatible with that of the superclass.
+
+Overridden functions and properties stay open until they’re declared final.
+
+When a function is overridden in a subclass, and that function is invoked on an instance of the subclass, the overridden version of the function is called.
+
+Inheritance guarantees that all subclasses have the functions and properties defined in the superclass.
+
+You can use a subclass in any place where the superclass type is expected.
+
+Polymorphism means “many forms”. It allows different subclasses to have different implementations of the same function.
+
+
+
+

@@ -1,0 +1,86 @@
+nulls and exceptions: Safe and Sound
+
+
+1. A nullable type is one that can hold null values in addition to its base type. A Duck? variable, for example, will accept Duck objects and null.
+
+2. How to create an array of nullable types
+var myArray:Array<String?> = arrayOf("Hi", "Hello", null)
+
+safe calls
+----------
+?. is the safe call operator. It lets you safely access a nullable type’s functions and properties.
+
+example
+var w: Wolf? = Wolf()
+w?.eat()
+
+
+Use let to run code if values are not null
+-----------------------------------------
+
+?.let allows you to run code for a value that’s not null.
+
+Elvis operator
+-------------
+The Elvis operator ?: is a safe version of an if expression. It returns the value on its left if that is not null. Otherwise, it returns the value on its right.
+
+The Elvis operator ?:
+w?.hunger ?: -1
+
+The !! operator deliberately throws a NullPointerException
+----------------------------------------------------------
+The not-null assertion operator, or !!, 
+
+Exception in thread "main" kotlin.KotlinNullPointerException
+
+	at MyWolf.myFunction(App.kt:98)
+
+	at AppKt.main(App.kt:67)
+
+An exception is thrown in exceptional circumstances
+---------------------------------------------------
+Every exception is an object of type Exception. It’s the superclass of all exceptions, so every type of exception inherits from it. On the JVM, for example, every exception has a function named printStackTrace that you can use to print the exception’s stack trace using code like this:
+
+* NullPointerException
+
+Thrown when you try to perform operations on a null value. As you’ve seen, NullPointerExceptions are nearly extinct in Kotlinville.
+
+* ClassCastException
+
+You’ll get this if you try to cast an object to an incorrect type, like casting a Wolf into a Tree.
+
+* IllegalArgumentException
+
+You can throw this if an illegal argument has been passed.
+
+* IllegalStateException
+
+Use this if some object has state that’s invalid.
+
+BULLET POINTS
+null is a value that means a variable doesn’t hold a reference to an object. The variable exists, but it doesn’t refer to anything.
+
+A nullable type can hold null values in addition to its base type. You define a type as nullable by adding a ? to the end of it.
+
+To access a nullable variable’s properties and functions, you must first check that it’s not null.
+
+If the compiler can’t guarantee that a variable is not null in between a null-check and its usage, you must access properties and functions using the safe call operator (?.).
+
+You can chain safe calls together.
+
+To execute code if (and only if) a value is not null, use ?.let.
+
+The Elvis operator (?:) is a safe alternative to an if expression.
+
+The not-null assertion operator (!!) throws a NullPointerException if the subject of your assertion is null.
+
+An exception is a warning that occurs in exceptional situations. It’s an object of type Exception.
+
+Use throw to throw an exception.
+
+Catch an exception using try/catch/finally.
+
+try and throw are expressions.
+
+Use a safe cast (as?) to avoid getting a ClassCastException.
+

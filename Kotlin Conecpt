@@ -1,0 +1,200 @@
+Kotlin Interview Question
+
+1. REPL stands for Read-Eval-Print Loop
+
+Question:
+1.In Java, numbers are primitives, so a variable holds the actual number. Is that not the case with Kotlin?
+Ans: No, it’s not. In Kotlin, numbers are objects, and the variable holds a reference to the object, not the object itself.
+
+2. Why does Kotlin care so much about a variable’s type?
+Ans: Because it makes your code safer, and less prone to bugs. It might sound picky, but trust us, it’s a good thing.
+
+3.  In Java, you can treat char primitives as numbers. Can you do the same for Chars in Kotlin?
+Ans: No, Chars in Kotlin are characters, not numbers. Repeat after us, Kotlin isn’t Java.
+
+4. Can I name my variables anything I want?
+Ans: No. The rules are a little flexible, but you can’t, say, give your variable a name that’s a reserved word. Naming your variable while, for example, is just asking for trouble. But the great news is that if you try and give a variable a name that’s illegal, IntelliJ IDEA will immediately highlight it as a problem.
+
+5. Is Math.random() the standard way of getting a random number in Kotlin?
+Ans: It depends which version of Kotlin you’re using.
+Before version 1.3, Kotlin didn’t have a built-in way of generating its own random numbers. For applications running on a JVM, however, you could use the random() method from the Java Math library, as we have.
+
+If you’re using version 1.3 or above, you can use Kotlin’s built-in Random functions instead. The following code, for example, uses Random’s nextInt() function to generate a random Int:
+
+kotlin.random.Random.nextInt()
+In this book, we’ve decided to continue using Math.random() to generate random numbers, as this approach works with all versions of Kotlin running on the JVM.
+
+Kotlin Function:
+Q: Can I return more than one value from a function?
+A: A function can declare only one return value. But if you want to, say, return three Int values, then the declared type can be an array of Ints (Array<Int>). Put those Ints into the array, and pass it back.
+
+Q: Do I have to do something with the return value of a function? Can I just ignore it?
+A: Kotlin doesn’t require you to acknowledge a return value. You might want to call a function with a return type, even though you don’t care about the return value. In this case, you’re calling the function for the work it does inside the function, rather than for what it returns. You don’t have to assign or use the return value
+
+Q: Can I get Kotlin to ignore the case? Can I capitalize the user input before checking whether it’s in the array?
+A: Kotlin includes toLowerCase, toUpperCase and capitalize functions to create a lowercase, uppercase or capitalized version of a String. As an example, here’s how you would use the capitalize function to capitalize the first letter of the String named userInput:
+userInput = userInput.capitalize()
+So you could convert the user input to an appropriate format before checking if it matches any of the values in the array.
+
+classes and objects
+
+
+
+
+abstract classes and interface que
+---------------------------------
+Q: Why must the first concrete class implement all the abstract properties and functions it inherits?
+A: Every property and function in a concrete class must be implemented so that the compiler knows what to do when they’re accessed.
+
+Only abstract classes can have abstract properties or functions. If a class has any properties or functions that are marked as abstract, the entire class must be abstract.
+
+Q: I want to define a custom getter and setter for an abstract property. Why can’t I?
+A: When you mark a property as abstract, you’re telling the compiler that the property has no useful implementation that would help its subclasses. If the compiler sees that an abstract property has some sort of implementation, such as a custom getter or setter, or an initial value, the compiler gets confused and won’t compile the code.
+
+Q: Are there any naming conventions for interfaces?
+A: Nothing is enforced, but because interfaces specify behavior, words ending in -ible or -able are often used; they give a name to what something does, rather than what it is.
+
+Q: Why don’t interfaces and abstract classes need to be marked as open?
+A: Interfaces and abstract classes live to be implemented or inherited from. The compiler knows this, so behind the scenes, every interface and abstract class is implicitly open, even if it isn’t marked as such.
+
+Q: You said that you can override any of the properties and functions that are defined in an interface. Don’t you mean that you can override any of its abstract properties and functions?
+A: No. With an interface, you can override any of its properties and functions. So even if a function in an interface has a concrete implementation, you can still override it.
+
+Q: Can an interface inherit from a superclass?
+A: No, but it can implement one or more interfaces.
+
+Q: When should I define a concrete implementation for a function, and when should I leave it abstract?
+A: You normally provide a concrete implementation if you can think of one that would be helpful to anything that inherits it.
+If you can’t think of a helpful implementation, you would normally leave it abstract as this forces any concrete subclasses to provide their own implementation.
+
+
+
+
+Data Classes
+------------
+Q: You said that every class is a subclass of Any. I thought that each class could only have one direct superclass?
+A: Behind the scenes, the Any class sits at the root of every superclass hierarchy, so every class you create is either a direct or indirect subclass of Any. This means that every class IS-A type of Any, and inherits the functions it defines: equals, hashCode and toString.
+
+Q: I see. And you say that data classes automatically override these functions?
+A: Yes. When you define a data class, the compiler secretly overrides the equals, hashCode and toString functions the class inherits so that they’re more appropriate for objects whose main purpose is to hold data.
+
+Q: Can I override these functions without creating a data class?
+
+A: Yes, in exactly the same way that you override functions from any other class: by providing an implementation for the functions in the body of your class.
+
+Q: Are there any rules I have to follow?
+
+A: The main thing is that if you override the equals function, you should override the hashCode function as well
+
+If two objects are considered equal, they must have the same hash code value. Some collections use hash codes as an efficient way of storing objects, and the system assumes that if two objects are equal, they also have the same hash code.
+
+Q: That sounds complicated.
+
+A: It’s certainly easier to create a data class, and using a data class means that you’ll have cleaner code that’s more concise. If you want to override the equals, hashCode and toString functions yourself, however, you can get the IDE to generate most of the code for you.
+
+To get the IDE to generate implementations for the equals, hashCode or toString functions, start by writing the basic class definition, including any properties. Next, make sure that your text cursor is in the class, go to the Code menu, and select the Generate option. Finally, choose the function you want to generate code for.
+
+Q: I’ve noticed that you’ve only defined data class properties in the constructor using val. Can I define them using var as well?
+
+A: You can, but we’d strongly encourage you to make your data classes immutable by only creating val properties. Doing so means that once a data object has been created, it can’t be updated, so you don’t have to worry about some other code changing any of its properties. Only having val properties is also a requirement of certain data structures
+
+Q: Why do data classes include a copy function?
+
+A: Data classes are usually defined using val properties so that they’re immutable. Having a copy function is a good alternative to having data objects that can be modified as it lets you easily create another version of the object with modified property values.
+
+Q: Can I declare that a data class is abstract? Or open?
+
+A: No. Data classes can’t be declared abstract or open, so you can’t use a data class as a superclass. Data classes can implement interfaces, however, and from Kotlin 1.1, they can also inherit from other classes.
+
+Q: Can a data class include functions?
+
+A: Yes. You define data class functions in exactly the same way that you define functions in a non-data class: by adding them to the class body.
+
+Function and overloading function
+-------------------------------
+
+Q: Default parameter values look really flexible.
+
+A: They are! You can use them in class constructors (including data class constructors) and functions, and you can even have a default parameter value that’s an expression. This means that you can write code that’s flexible, but very concise
+
+Q: You said that using default parameter values mostly gets around the need for writing secondary constructors. Are there any situations where I may still need them?
+
+A: The most common situation is if you need to extend a class in a framework (such as Android) that has multiple constructors.
+
+You can find out more about using secondary constructors in Kotlin’s online documentation:
+Q: I want Java programmers to be able to use my Kotlin classes, but Java has no concept of default parameter values. Can I still use default parameter values in my Kotlin classes?
+
+A: You can. When you call a Kotlin constructor or function from Java, just make sure that the Java code specifies a value for each parameter, even if it has a default parameter value.
+
+If you plan on making a lot of Java calls to your Kotlin constructor or function, an alternative approach is to annotate each function or constructor that uses default parameter values with @JvmOverloads. This tells the compiler to automatically create overloaded versions that can more easily be called from Java.
+
+Here’s an example of how you use @JvmOverloads with a function:
+@JvmOverloads fun myFun(str: String = ""){
+
+    //Function code goes here
+
+}
+And here’s an example of how you use it with a class that has a primary constructor:
+class Foo @JvmOverloads constructor(i: Int = 0){
+
+    //Class code coes here
+
+}
+Note that in order to annotate the primary constructor with @JvmOverloads, you must also prefix the constructor with the constructor keyword. Most of the time, this keyword is optional.
+
+Null Safety
+------------
+Q: What happens if I initialize a variable with a null value, and let the compiler infer the variable’s type? For example:
+var x = null
+A: The compiler sees that the variable needs to be able to hold null values, but as it has no information about any other kinds of object it might need to hold, it creates a variable that can only hold a value of null. This probably isn’t what you want, so if you’re going to initialize a variable with a null value, make sure you specify its type.
+
+Q: You said in the previous chapter that every object is a subclass of Any. Can a variable whose type is Any hold null values?
+A: No. If you want a variable to hold references to any type of object and null values, its type must be Any?. For example:
+var z: Any?
+
+Exception Question
+-----------------
+Q: You said that you can use throw in an expression. Does that mean throw has a type? What is it?
+A: throw has a return type of Nothing. This is a special type that has no values, so a variable of type Nothing? can only hold a null value. The following code, for example, creates a variable named x of type Nothing? that can only be null:
+
+var x = null
+Q: I get it. Nothing is a type that has no values. Is there anything I might want to use that type for?
+A: You can also use Nothing to denote code locations that can never be reached. You can, say, use it as the return type of a function that never returns:
+
+fun fail(): Nothing {
+
+    throw BadException()
+
+}
+The compiler knows that the code stops execution after fail() is called.
+Q: In Java I have to declare when a method throws an exception.
+
+A: That’s correct, but you don’t in Kotlin. Kotlin doesn’t differentiate between checked and unchecked exceptions.
+
+Collection
+----------
+Q: Can’t I remove an item from an array by setting it to null?
+
+A: If you create an array that holds nullable types, you can set one or more of its items to null using code like this:
+
+val a: Array<Int?> = arrayOf(1, 2, 3)  a[2] = null
+This doesn’t change the size of the array, however. In the above example, the array’s size is still 3 even though one of its items has been set to null.
+
+Q: Couldn’t I create a copy of the array that has a different size?
+
+A: You could, and arrays even have a function named plus that makes this easier; plus copies the array, and adds a new item to the end of it. But this doesn’t change the size of the original array.
+
+Q: Is that a problem?
+
+A: Yes. You’ll need to write extra code, and if other variables hold references to the old version of the array, this might lead to buggy code.
+
+
+
+
+
+
+
+
+
+
+
