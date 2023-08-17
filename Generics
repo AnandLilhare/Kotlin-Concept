@@ -1,0 +1,69 @@
+Generics
+
+Things you can do with a generic class or interface
+
+* Create an instance of a generified class.
+val duckList: MutableList<Duck>
+duckList = mutableListOf(Duck("Donald"), Duck("Daisy"), Duck("Daffy"))
+val list = mutableListOf("Fee", "Fi", "Fum")
+
+* Create a function that takes a generic type.
+fun quack(ducks: MutableList<Duck>) {
+  //Code to make the Ducks quack
+}
+
+* Create a function that returns a generic type.
+fun getDucks(breed: String): MutableList<Duck> {
+//Code to get Ducks for the specified breed
+}
+
+Covariant: 
+
+-If a generic type is covariant, it means that you can use a subtype in place of a supertype.
+-When we prefix a generic type with out, we say that the generic type is covariant. In other words, it means that a subtype can be used in place of a supertype.
+
+
+-In general, a class or interface generic type may be prefixed with out if the class has functions that use it as a return type, or if the class has val properties of that type. You can’t, however, use out if the class has function parameters or var properties of that generic type.
+
+Note - Another way of thinking about this is that a generic type that’s prefixed with out can only be used in an “out” position, such as a function return type. It can’t, however, be used in an “in” position, so a function can’t receive a covariant type as a parameter value.
+
+Contravariant
+-------
+
+- If a generic type is contravariant, it means that you can use a supertype in place of a subtype. This is the opposite of covariance.
+
+- When we prefix a generic type with in, we say that the generic type is contravariant. In other words, it means that a supertype can be used in place of a subtype.
+
+Note: In other words, a generic type that’s prefixed with “in” can only be used in an “in” position, such as a function parameter value. It can’t be used in “out” positions.
+
+Invariant
+--------
+- When a generic type has no in or out prefix, we say that the type is invariant. An invariant type can only accept references of that specific type.
+
+
+Bullet Point
+Generics let you write consistent code that’s type-safe. Collections such as MutableList use generics.
+
+The generic type is defined inside angle brackets <>, for example:
+
+class Contest<T>
+You can restrict the generic type to a specific supertype, for example:
+
+class Contest<T: Pet>
+You create an instance of a class with a generic type by specifying the “real” type in angle brackets, for example:
+
+Contest<Cat>
+Where possible, the compiler will infer the generic type.
+
+You can define a function that uses a generic type outside a class declaration, or one that uses a different generic type, for example:
+
+fun <T> listPet(): List<T>{
+
+    ...
+
+}
+A generic type is invariant if it can only accept references of that specific type. Generic types are invariant by default.
+
+A generic type is covariant if you can use a subtype in place of a supertype. You specify that a type is covariant by prefixing it with out.
+
+A generic type is contravariant if you can use a supertype in place of a subtype. You specify that a type is contravariant by prefixing it with in.

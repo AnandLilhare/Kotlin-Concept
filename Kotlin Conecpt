@@ -188,6 +188,147 @@ Q: Is that a problem?
 
 A: Yes. You’ll need to write extra code, and if other variables hold references to the old version of the array, this might lead to buggy code.
 
+Q: What’s a package?
+
+A: A package is a grouping of classes and functions. They’re useful for a couple of reasons.
+First, they help organize a project or library. Rather than just having one large pile of classes, they’re all grouped into packages for specific kinds of functionality.
+Second, they give you name-scoping, which means that multiple people can write classes with the same name, just so long as they’re in different packages.
+You’ll find out more about structuring your code into packages in Appendix III.
+
+Q: In Java I have to import any packages I want to use, including collections. Do I in Kotlin?
+
+A: Kotlin automatically imports many packages from the Kotlin Standard Library, including kotlin.collections. There are still situations where you need to explicitly import packages, however, and you can find out more in Appendix III.
+
+Q. If you added duplicate value in set then what will be happen, is it throw expection or getting comiplet type error?
+
+A. No, it will compile but it will skipped duplicate value to store
+
+Q. Is there is any way to get value by index in Set?
+A. There’s no get function you can use to get the value at a specified index.
+
+Q.how does a Set decide whether a value is a duplicate?
+To answer this question, let’s go through the steps a Set takes when it decides whether or not a value is a duplicate.
+
+- The Set gets the object’s hash code, and compares it with the hash codes of the objects already in the Set.
+
+- A Set uses hash codes to store its elements in a way that makes it much faster to access. It uses the hash code as a kind of label on a “bucket” where it stores elements, so all objects with a hash code of, say, 742, are stored in the bucket labeled 742.
+
+- If the Set has no matching hash codes for the new value, the Set assumes that it’s not a duplicate, and adds the new value. If, however, the Set has matching hash codes, it needs to perform extra tests, and moves on to step 2.
+
+
+- The Set uses the === operator to compare the new value against any objects it contains with the same hash code.
+As you learned in Chapter 7, the === operator is used to check whether two references refer to the same object. So if the === operator returns true for any object with the same hash code, the Set knows that the new value is a duplicate, so it rejects it. If the === operator returns false, however, the Set moves on to step 3.
+
+
+-The Set uses the == operator to compare the new value against any objects it contains with matching hash codes.
+The == operator calls the value’s equals function. If this returns true, the Set treats the new value as a duplicate, and rejects it. If the == operator returns false, however, the Set assumes that the new value is not a duplicate, and adds it.
+
+- So there are two situations in which a Set views a value as a duplicate: if it’s the same object, or equal to a value it already contains. Let’s look at this in more detail.
+
+Q: How can hash codes be the same even if objects aren’t equal?
+A: As we said earlier, a Set uses hash codes to store its elements in a way that makes it much faster to access. If you want to find an object in a Set, it doesn’t have to start searching from the beginning, looking at each element to see if it matches. Instead, it uses the hash code as a label on a “bucket” where it stored the element. So if you say “I want to find an object in the Set that looks like this one...”, the Set gets the hash code value from the object you give it, then goes straight to the bucket for that hash code.
+
+This isn’t the whole story, but it’s more than enough for you to use a Set effectively and understand what’s going on.
+
+The point is that hash codes can be the same without necessarily guaranteeing that the objects are equal, because the “hashing algorithm” used in the hashCode function might happen to return the same value for multiple objects. And yes, that means that multiple objects would all land in the same bucket in the Set (because each bucket represents a separate hash code value), but that’s not the end of the world. It might mean that the Set is a little less efficient, or that it’s filled with an extremely large number of elements, but if the Set finds more than one object in the same hash code bucket, the Set will simply use the === and == operators to look for a perfect match. In other words, hash code values are sometimes used to narrow down the search, but to find the one exact match, the Set still has to take all the objects in that one bucket (the bucket for all the objects with the same hash code) and see if there’s a matching object in that bucket.
+
+Q: You said that I can create a List copy of a Set, and a Set copy of a List. Can I do something similar with an array?
+A: Yes, you can. Arrays have a bunch of functions that you can use to copy the array to a new collection: toList(), toMutableList(), toSet() and toMutableSet(). So the following code creates an array of Ints, then copies it into a Set<Int>:
+
+val a = arrayOf(1, 2, 3)
+
+val s = a.toSet()
+Similarly, List and Set (and therefore MutableList and MutableSet) have a function named toTypedArray() that copies the collection to a new array of the appropriate type. So the code:
+
+val s = setOf(1, 2, 3)
+
+val a = s.toTypedArray()
+creates an array of type Array<Int>.
+
+Q: Can I sort a Set?
+A: No, a Set is an unordered collection so you can’t sort it directly. You can, however, use its toList() function to copy the Set into a List, and you can then sort the List.
+
+Q: Can I use the == operator to compare the contents of two Sets?
+A: Yes, you can. Suppose you have two Sets, a and b. If a and b contain the same values, a == b will return true, as in the following example:
+
+val a = setOf(1, 2, 3)
+
+val b = setOf(3, 2, 1)
+
+//a == b is true
+If the two sets compare different values, however, the result will be false.
+
+Q: That’s clever. What if one of the Sets is a MutableSet? Do I first need to copy it to a Set?
+A: You can use == without copying the MutableSet to a Set. In the following example, a == b returns true:
+
+val a = setOf(1, 2, 3)
+
+val b = mutableSetOf(3, 2, 1)
+
+Q: I see. Does == work with Lists too?
+A: Yes, you can use == to compare the contents of two Lists. It will return true if the Lists hold the same values against the same indexes, and false if the Lists hold different values, or hold the same values in a different order. So in the following example, a == b returns true:
+
+val a = listOf(1, 2, 3)
+
+val b = listOf(1, 2, 3)
+
+Q: Why does Kotlin have mutable and immutable versions of the same type of collection? Why not just have mutable versions?
+
+A: Because it forces you to explicitly choose whether your collection should be mutable or immutable. This means that you can prevent collections from being updated if you don’t want them to be
+
+Q: Can’t I do that using val and var?
+
+A: No. val and var specify whether or not the reference held by the variable can be replaced with another one after it’s been initialized. If a variable defined using val holds a reference to a mutable collection, the collection can still be updated. val just means that the variable can only ever refer to that collection.
+
+Q: Is it possible to create a non-updateable view of a mutable collection?
+
+A: Suppose you have a MutableSet of Ints that’s assigned to a variable named x:
+
+val x = mutableSetOf(1, 2)
+You can assign x to a Set variable named y using the following code:
+
+val y: Set<Int> = x
+As y is a Set variable, it can’t update the underlying object without you first casting it to a MutableSet.
+
+Q: Is that different to using toSet?
+
+A: Yes. toSet copies a collection, so if changes are made to the original collection, these won’t be picked up.
+Q: Can I explicitly create and use Java collections using Kotlin?
+
+A: Yes. Kotlin includes various functions that let you explicitly create Java collections. You can, for example, create an ArrayList using the arrayListOf function, and a HashMap using the hashMapOf function. These functions, however, create mutable objects.
+
+Q: So MutableList isn’t a class?
+
+A: No, it’s an interface. When you create a MutableList using the mutableListOf function, the system creates an implementation of this interface. All you care about when you’re using it, however, is that it has all the properties and functions defined in the MutableList interface.
+
+Generic
+--------
+Q: Can a generic type be nullable?
+
+A: Yes. If you have a function that returns a generic type, and you want this type to be nullable, simply add a ? after the generic return type like this:
+class MyClass<T> {
+
+    fun myFun(): T?
+
+}
+
+Q: Can a class have more than one generic type?
+
+A: Yes. You define multiple generic types by specifying them inside angle brackets, separated by a comma. If you wanted to define a class named MyMap with K and V generic types, you would define it using code like this:
+
+class MyMap<K, V> {
+
+   //Code goes here
+
+}
+Q: Kotlin’s approach to generics seems different to Java’s. Is that right?
+
+A: Yes, it is. With Java, generic types are always invariant, but you can use wildcards to get around some of the problems this creates. Kotlin, however, gives you far greater control as you can make generic types covariant, contravariant, or leave them as invariant.
+
+
+
+
+
 
 
 
