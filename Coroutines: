@@ -1,0 +1,22 @@
+
+
+
+Coroutines:
+
+- Coroutines let you write code that’s run asynchronously .
+- When you call a suspendable function (such as delay) from another function, that function must be marked with suspend.
+
+Bullet Point
+
+- Coroutines let you run code asynchronously. They are useful for running background tasks.
+
+- A coroutine is like a lightweight thread. Coroutines run on a shared pool of threads by default, and the same thread can run many coroutines.
+
+- To use coroutines, create a Gradle project and add the coroutines library to build.gradle  as a dependency.
+
+- Use the launch function to launch a new coroutine.
+
+- The runBlocking function blocks the current thread until the code it contains has finished running.
+
+- The delay function suspends the code for a specified length of time. It can be used inside a coroutine, or inside a function that’s marked using suspend.
+

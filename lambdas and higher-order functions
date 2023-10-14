@@ -1,2 +1,79 @@
 lambdas and higher-order functions
 
+- A lambda expression, or lambda, is a type of object that holds a block of code. You can assign a lambda to a variable, just as you can any other sort of object, or pass a lambda to a function which can then execute the code it holds.
+
+- Execute a lambda’s code by invoking it
+
+val addInts = { x: Int, y: Int -> x + y }
+val result = addInts.invoke(6, 7)
+
+You can also invoke the lambda using the following shortcut:
+
+val result = addInts(6, 7)
+
+- A lambda’s type is also known as a function type.
+
+- If you want to specify that a lambda has no return value, you can do so by declaring that its return type is Unit. 
+ex: val calculation: (Int, Int) -> Unit = { x, y -> x + y }
+
+- A function that uses a lambda as a parameter or return value is known as a higher-order function.
+
+Question
+
+Q: Does the code
+   val x = { "Pow!" }
+  assign the text “Pow!” to x?
+Ans: No. The above assigns a lambda to x, and not a String. The lambda, however, returns “Pow!” when it is executed.
+
+Q: Can I assign a lambda to a variable of type Any?
+Ans: Yes. An Any variable can accept a reference to any type of object, including lambdas.
+
+
+High Order Function
+- A function that uses a lambda as a parameter or return value is known as a higher-order function.
+
+Q: Why are lambdas called lambdas?
+A: It’s because they come from an area of mathematics and computer science called Lambda Calculus, where small, anonymous functions are represented by the Greek letter λ (a lambda)
+
+A: A lambda is a type of function, but in most languages, functions always have names. As you’ve already seen, a lambda doesn’t need to have a name.
+
+Q: I’ve heard of functional programming. What’s that?
+
+A: Lambdas are an important part of functional programming. While non-functional programming reads data input and generates data output, functional programs can read functions as input, and generate functions as output. If your code includes higher-order functions, you are doing functional programming.
+
+Q: Is functional programming very different from object-oriented programming?
+
+A: They are both ways of factoring your code. In object-oriented programming you combine data with functions, and in functional programming you combine functions with functions. The two styles of programming are not incompatible; they are just different ways of looking at the world.
+
+
+Bullet Point:
+
+1. A lambda expression, or lambda, takes the form:
+
+{ x: Int -> x + 5 }
+2. The lambda is defined within curly braces, and can include parameters, and a body.
+
+3. A lambda can have multiple lines. The last evaluated expression in the body is used as the lambda’s return value.
+
+You can assign a lambda to a variable. The variable’s type must be compatible with the type of the lambda.
+
+3. A lambda’s type has the format:
+
+(parameters) -> return_type
+Where possible, the compiler can infer the lambda’s parameter types.
+
+4. If the lambda has a single parameter, you can replace it with it.
+
+You execute a lambda by invoking it. You do this by passing the lambda any parameters in parentheses, or by calling its invoke function.
+
+5.You can pass a lambda to a function as a parameter, or use one as a function’s return value. A function that uses a lambda in this way is known as a higher-order function.
+
+6.If the final parameter of a function is a lambda, you can move the lambda outside the function’s parentheses when you call the function.
+
+7. If a function has a single parameter that’s a lambda, you can omit the parentheses when you call the function.
+
+8. A type alias lets you provide an alternative name for an existing type. You define a type alias using typealias.
+
+
+
+

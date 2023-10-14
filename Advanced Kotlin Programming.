@@ -1,0 +1,27 @@
+Advanced Kotlin Programming.
+
+Tail Recursion
+--------------
+- Tail recursion is a recursion which performs the calculation first, then makes the recursive call. The result of current step is passed into the next recursive call.
+
+- Tail recursion follows one rule for implementation. This rule is as follow:
+
+- The recursive call must be the last call of the method. To declare a recursion as tail recursion we need to use tailrec modifier before the recursive function.
+
+- By interally in tail recursion function is calling loop instead calling self function 
+exmaple:
+tailrec fun factorialNumberTrc(num : Int, accumatoreValue : Int = 1) : Int {
+    return when(num) {
+        0 -> accumatoreValue
+        else -> factorialNumberTrc(num - 1, accumatoreValue * num)
+    }
+}
+fun main() {
+    //println("Factorial number of 5 is ${factorialNumber(5)}")
+    println("Factorial number of 5 is ${factorialNumberTrc(5, 1)}")
+
+}
+
+----
+Operating Overloading
+

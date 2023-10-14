@@ -1,0 +1,114 @@
+ built-in higher-order functions: Power Up Your Code
+
+ 1. minBy
+ 2. maxBy
+
+ 1. minBy and maxBy work with collections that hold any type of object, making them much more flexible than min and max.
+
+ 2. If you call minBy or maxBy on a collection that contains no items, the function will return a null value.
+
+ Q: Do the min and max functions only work with Kotlin’s basic types, such as numbers and Strings?
+ Ans: min and max work with types where you can compare two values, and say whether one value is greater than another, which is the case for Kotlin’s basic types. These types work in this way because behind the scenes, each one implements the Comparable interface, which defines how instances of that type should be ordered and compared.
+
+ In practice, min and max work with any type that implements Comparable. Instead of implementing Comparable in your own classes, however, we think that using the minBy and maxBy functions is a better approach as they give you more flexibility.
+
+
+----
+
+ Now that you know how to use minBy and maxBy, let’s look at two of their close relatives: sumBy and sumByDouble.
+
+ 1. sumBy adds Ints together, and returns an Int.
+ 2. sumByDouble adds Doubles, and returns a Double.
+ 3. You can, however, use them on a Map’s keys, values or entries properties. The following code, for example, returns the sum of a Map’s values:
+
+ -----
+
+ filter
+
+ 1. This function lets you search, or filter, a collection according to some criteria that you pass to it using a lambda.
+
+ ex: val unitPriceOver3 = groceries.filter { it.unitPrice > 3.0 }
+
+ 2. Kotlin has several variations of the filter function
+    1. filterTo : e filter function, except that it appends the items that match the specified criteria to another collection.
+    2.filterIsInstance:The filterIsInstance function returns a List of all the items which are instances of a given class.
+    3.filterNot: function returns those items in a collection which don’t match the criteria you pass to it.
+ -------
+
+ map
+
+ Use map to apply a transform to your collection
+
+ 1. The map function takes the items in a collection, and transforms each one according to some formula that you specify. It returns the results of this transformation as a new List.
+
+ 2. Yes! The map function returns a List, and not a Map.
+
+
+ Q: You said earlier that the filter function has a number of variations, like filterTo and filterNot. What about map? Are there variations of that function too?
+
+ A: Yes! Variations include mapTo (which appends the results of the transformation to an existing collection), mapNotNull (which omits any null values) and mapValues (which works with and returns a Map). You can find more details here:
+
+ ------
+ forEach
+
+ 1. You can use forEach with arrays, Lists, Sets, and on a Map’s entries, keys and values properties.
+
+
+ ----------
+ Use groupBy to split your collection into groups
+
+ 1. The next function that we’ll look at is groupBy. This function lets you group the items in your collection according to some criteria, such as the value of one of its properties. You can use it (in conjunction with other function calls) to, say, print the name of Grocery items grouped by category value:
+
+ 2. Note that you can’t use groupBy on a Map directly, but you can call it on its keys, values or entries properties.
+
+----------
+How to use the fold function
+
+1. The fold function is arguably Kotlin’s most flexible higher-order function. With fold, you can specify an initial value, and perform some operation on it for each item in a collection. You can use it to, say, multiply together each item in a List<Int> and return the result, or concatenate together the name of each item in a List<Grocery>, all in a single line of code.
+
+-----
+
+Q: You said that some of the higher-order functions in this chapter can’t be used directly with a Map. Why is that?
+
+A: It’s because Map is defined a little differently to List and Set, and this affects which functions will work with it.
+
+Behind the scenes, List and Set inherit behavior from an interface named Collection, which in turn inherits behavior defined in the Iterable interface. Map, however, does not inherit from either of these interfaces. This means that List and Set are both types of Iterable, while Map isn’t.
+
+This distinction is important because functions such as fold, forEach and groupBy are designed to work with Iterables. And because Map isn’t an Iterable, you’ll get a compiler error if you try to directly use any of these functions with a Map.
+
+The great news, however, is that Map’s entries, keys and values properties are all types of Iterable: entries and keys are both Sets, and values inherits from the Collection interface. This means that while you can’t call functions such as groupBy and fold on a Map directly, you can still use them with the Map’s properties.
+
+Q: Do I always need to provide the fold function with an initial value? Can’t I just use the first item in the collection as the initial value?
+
+A: When you use the fold function, you must specify the initial value. This parameter is mandatory, and can’t be omitted.
+
+If you want to use the first item in the collection as the initial value, however, an alternative approach is to use the reduce function. This function works in a similar way to fold, except that you don’t have to specify the initial value. It automatically uses the first item in the collection as the initial value.
+
+Q: Does fold iterate through the collection in a specific order? Can I reverse this order?
+
+A: The fold and reduce functions work through items in a collection from left to right, starting with the first item in the collection.
+If you want to reverse this order, you can use the  foldRight and reduceRight functions. These functions works on arrays and Lists, but not on Sets or Maps.
+
+Q: Can I update the variables in a lambda’s closure?
+A: Yes. As you may recall, a lambda’s closure refers to those variables defined outside the lambda body which the lambda has access to. Unlike some languages such as Java, you can update these variables in the lambda’s body so long as they have been defined using var.
+
+
+
+BULLET POINTS
+----
+1. Use minBy and maxBy to find the lowest or highest value in a collection. These functions take one parameter, a lambda whose body specifies the function criteria. The return type matches the type of items in the collection.
+
+2. Use sumBy or sumByDouble to return the sum of items in a collection. Its parameter, a lambda, specifies the thing you want to sum. If this is an Int, use sumBy, and if it’s a Double, use sumByDouble.
+
+3.The filter function lets you search, or filter, a collection according to some criteria. You specify this criteria using a lambda, whose lambda body must return a Boolean. filter usually returns a List . If the function is being used with a Map, however, it returns a Map instead.
+
+4.The map function transforms the items in a collection according to some criteria that you specify using a lambda. It returns a List.
+
+5.forEach works like a for loop. It allows you to perform one or more actions for each item in a collection.
+
+6.Use groupBy to divide a collection into groups. It takes one parameter, a lambda, which defines how the function should group the items. The function returns a Map, which uses the lambda criteria for the keys, and a List for each value.
+
+7. The fold function lets you specify an initial value, and perform some operation for each item in a collection. It takes two parameters: the initial value and a la
+
+
+

@@ -1,0 +1,123 @@
+Other Topics: 
+
+
+1.Visibility modifiers
+------------------
+
+Kotlin has four visibility modifiers: public, private, protected and internal. Let’s see how these work.
+
+
+
+2. Enum classes
+An enum class lets you create a set of values that represent the only valid values for a variable.
+
+----
+3. Sealed classes
+
+You’ve already seen that enum classes let you create a restricted set of values, but there are some situations where you need a little more flexibility.
+
+Suppose that you want to be able to use two different message types in your application: one for “success”, and another for “failure”. You want to be able to restrict messages to these two types.
+
+If you were to model this using an enum class, your code might look like this:
+
+image
+But there are a couple of problems with this approach:
+
+* Each value is a constant which only exists as a single instance.
+
+You can’t, say, change the msg property of the SUCCESS value in one situation, as this change will be seen everywhere else in your application.
+
+* Each value must have the same properties and functions.
+
+It might be useful to add an Exception property to the FAILURE value so that you can examine what went wrong, but an enum class won’t let you.
+
+So what’s the solution
+
+Sealed classes to the rescue!
+
+Defination;
+A solution to this kind of problem is to use a sealed class. A sealed class is like a souped-up version of an enum class. It lets you restrict your class hierarchy to a specific set of subtypes, each one of which can define its own properties and functions. And unlike an enum class, you can create multiple instances of each type.
+
+
+-------------
+5. Nested and inner classes
+
+A nested class is a class that’s defined inside another class. This can be useful if you want to provide the outer class with extra functionality that’s outside its main purpose, or bring code closer to where it’s being used.
+
+- Note that you can’t access a nested class from an instance of the outer class without first creating a property of that type inside the outer class.
+
+-Another restriction is that a nested class doesn’t have access to an instance of the outer class, so it can’t access its members.
+
+-If you want a nested class to be able to access the properties and functions defined by its outer class, you can do so by making it an inner class. 
+
+--------
+6. Object declarations and expressions
+
+- There are times where you want to make sure that only a single instance of a given type can be created, such as if you want to use a single object to coordinate actions across an entire application. In these situations, you can use the object keyword to make an object declaration.
+
+- If you’re familiar with design patterns, an object declaration is the Kotlin equivalent of a Singleton.
+- An object declaration defines a class and creates an instance of it in a single statement.
+- Add an object declaration to a class to create a single instance of that type which belongs to the class.
+-A companion object can be used as the Kotlin equivalent to static methods in Java.
+-Any functions you add to a companion object are shared by all class instances.
+
+Object expressions
+An object expression is an expression that creates an anonymous object on the fly with no predefined type.
+
+-----
+
+7. Extensions
+Extensions let you add new functions and properties to an existing type without you having to create a whole new subtype.
+- There are also Kotlin extension libraries you can use to make your coding life easier, such as Anko and Android KTX for Android app development.
+
+8. Return, break and continue
+
+* return
+
+As you already know, this returns from the enclosing function.
+* break
+
+This terminates (or jumps to the end of) the enclosing loop, for example:
+
+* continue
+
+This moves to the next iteration of the enclosing loop, for example:
+
+-------
+9. More fun with functions
+- vararg
+If you want a function to accept multiple arguments of the same type but you don’t know how many, you can prefix the parameter with vararg. This tells the compiler that the parameter can accept a variable number of arguments. Here’s an example:
+
+- infix
+If you prefix a function with infix, you can call it without using the dot notation. Here’s an example of an infix function:
+
+infix fun String.shouldBeEqualTo(value:String) = this == value
+
+fun main() {
+    val shouldBeEqualTo = "Hellow".shouldBeEqualTo("Hellow")
+    println(shouldBeEqualTo)
+
+    // Infix example
+
+    val infiShouldBeEqualeTo = "Hellow" shouldBeEqualTo "Hellow"
+    println(infiShouldBeEqualeTo)
+}
+
+- It is work when function is extension function or general function with single parameters.
+---------------
+inline
+- Higher order functions can sometimes be slightly slower to run, but a lot of the time, you can improve their performance by prefixing the function with inline.
+- Its work with only High order function.
+- if you have multiple lambda parameter in the high order function then if you want you can make one of the parameter noninline parameter
+- You can't store reference of the high order function inline
+
+
+
+
+-------------
+
+Anonymous Function
+- Anonymous function has not any name of function.
+- if you compaire with labmda function, in anonymous fuction provide you luxary to write if and else condition logic.
+
+
