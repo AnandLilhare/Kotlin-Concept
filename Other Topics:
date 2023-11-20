@@ -119,5 +119,18 @@ inline
 Anonymous Function
 - Anonymous function has not any name of function.
 - if you compaire with labmda function, in anonymous fuction provide you luxary to write if and else condition logic.
+-----------
+
+Generic Concept
+
+Kotlin uses the concepts of in, out, and where.
+
+In: A type that is marked as in can be used as a parameter but not as a return value. This is also called covariance. 
+
+out: Types that are marked as out can be used only as a return value, not as a parameter. This is called contravariance.
+
+where: Furthermore, we may introduce constraints on types using the where keyword. In our case
+
+(*) - You may be wondering what the star (*) means as regards generics. It's called a star projection, and it means I don't know anything about this type. It's similar to Java's raw types, but it's type safe.
 
 

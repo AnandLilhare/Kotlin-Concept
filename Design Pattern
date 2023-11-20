@@ -1,0 +1,80 @@
+Design Pattern
+
+1. Creational pattern: 
+These patterns deal with how and when you create your objects. Mastering these patterns will allow you to manage your objects better, adapt well to changes, and write code that is easy to maintain.
+- Singleton
+- Factory Method
+- Abstract Factory
+- Builder
+- Prototype
+
+Factory Method
+- The Factory Method is all about creating objects. But why do we need a method to create objects.
+- This pattern is very useful when creating objects from a configuration. 
+
+Abstract Factory
+
+- Abstract Factory is a factory of factories. That's all there is to it, really. The factory is a function or class that's able to create other classes. Abstract Factory is a class that creates factories.
+
+- The main usage of Abstract Factory in the real world would probably be frameworks, most notably Spring Framework, which uses the notion of Abstract Factory to create its components out of annotations and XML files
+
+Builder
+
+-Sometimes, our objects are very simple, and have only one constructor, be it an empty or non-empty one
+
+Prototype
+
+- This design pattern is all about customization and creating objects that are similar but slightly different.
+- The whole idea of a prototype is to be able to clone an object easily. There are a number of reasons you may want to do this:
+Creating your object is very expensive. You need to fetch it from the database.
+You create objects that are similar but different from one another, and you don't want to repeat similar parts over and over again.
+
+--------------------------------------------------------------------------------------------
+
+2. Structural Pattern
+- Those patterns help extend the functionality of our objects.
+
+Following are the Structural Pattern
+- Decorator
+- Adapter
+- Bridge
+- Composite
+- Facade
+- Flyweight
+- Proxy
+
+Decorator:
+Decorator is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors.
+Decorator pattern is:
+- To be able to receive the object we're decorating
+- To keep a reference to it
+- When our Decorator is called, we decide if we would like to change the behavior of the object we're holding, or to delegate the call
+- The Decorator design pattern is widely used in the java.io.* package, with classes such as reader and writer.
+
+Adapter:
+The main goal of an Adapter, or Wrapper, as it's sometimes called, is to convert one interface to another interface. In the physical world, the best example would be an electrical plug Adapter, or a USB Adapter
+
+two types of adapters.
+- In Java, you would usually create a pair of classes for that purpose. In Kotlin, we can replace those with extension functions.
+
+Bridge:
+Unlike some other design patterns we've met, Bridge is less about a smart way to compose objects, and more about guidelines on how not to abuse inheritance. The way it works is actually very simple
+
+Composite:
+Having said that, we can start analyzing this pattern. It may look a bit strange to have a Composite design pattern. After all, aren't all Structural Patterns about composing objects?
+
+Much like in the case of the Bridge design pattern, the name may not reflect its true benefits.
+
+Facade:
+In different implementations and approaches, Facade may resemble either an Adapter or an Abstract Factory.
+1. When we think about simplifying, we usually think of the Adapter design pattern
+2. When we think about the family of classes, we usually think of an Abstract Factory
+
+Flyweight:
+Flyweight is an object without any state. The name comes from being very light.
+
+Proxy:
+This is one misbehaving design pattern. Much like Decorator, it extends object functionality. But, unlike Decorator, which always does at it's told, having a Proxy may mean that when asked, the object will do something totally different instead.
+
+
+
