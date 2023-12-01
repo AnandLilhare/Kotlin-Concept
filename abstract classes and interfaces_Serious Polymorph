@@ -5,11 +5,27 @@ abstract classes and interfaces: Serious Polymorphism
 2. An abstract class can contain abstract and non-abstract properties and functions. It’s possible for an abstract class to have no abstract members.
 3. Abstract properties and functions don’t need to be marked as open.
 4. If you mark a property or function as abstract, you must mark the class as abstract too.
+5. You can override a non-abstract open member with an abstract one.
 
+----------------
 Interface
 An interface lets you define common behavior OUTSIDE a superclass hierarchy
 
 Interfaces are used to define a protocol for common behavior so that you can benefit from polymorphism without having to rely on a strict inheritance structure. Interfaces are similar to abstract classes in that they can’t be instantiated, and they can define abstract or concrete functions and properties, but there’s one key difference: a class can implement multiple interfaces, but can only inherit from a single direct superclass. So using interfaces can provide the same benefits as using abstract classes, but with more flexibility.
+
+Functional(SAM) interfaces:
+- An interface with only one abstract method is called a functional interface, or a Single Abstract Method(SAM) interface
+- The functional interface can have serveral non abstract members but only one abstract member.
+
+- To declare a function interface in Kotlin, use th fun modifier.
+- Instead of creating a class that implements a functional interface manually, you can use a lambda expression.With a SAM conversion, Kotlin can convert any lambda expression whose signature matches the signature of the interface single method into the code.
+
+Type aliases:
+- Function interface and type aliases serve different purpose. Type aliases server different purpose. Type aliases are just names of existing types.- they don't create a new type, while functional interface do.
+
+- Type aliases can have only one member, while functional interface can have multiple non-abstract members and one abstract member. Functional interface can also implement and extend other interface.
+
+
 
 How do you know whether to make a class, a subclass, an abstract class, or an interface?
 

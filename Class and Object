@@ -2,21 +2,7 @@ Class and Object
 -----------------
 -----------------
 
-Q: Does the constructor allocate the memory for the object that’s being created?
-A: No, the system does. The constructor initializes the object, so it makes sure that the object’s properties are created and that they’re assigned their initial values. All memory is managed by the system.
+- A class in koltin ha primary constructor and possible one or more secondary constructor 
+- If the primary constructor does not have any annotation or visibilty modifiers, the constructor keywor can be omitted.
 
-Q: Can I define a class without defining a constructor?
-Yes, you can.
-
-Q: In Java, you don’t have to initialize the variables that you declare inside a class. Is there a way of not initializing class properties in Kotlin?
-A: If you’re completely certain that you can’t assign an initial value to a property when you call the class constructor, you can prefix it with lateinit. This tells the compiler that you’re aware that the property hasn’t been initialized yet, and you’ll handle it later. If you wanted to mark the temperament property for late initialization, for example, you’d use:
-
-lateinit var temperament: String
-Doing so allows the compiler to compile your code. In general, however, we strongly encourage you to initialize your properties.
-
-Q: What happens if I try to use a property value before it’s been initialized?
-A: If you don’t initialize a property before you try and use it, you’ll get a runtime error when you run the code.
-
-Q: Can I use lateinit with any type of property?
-A: You can only use lateinit with properties defined using var, and you can’t use it with any of the following types: Byte, Short, Int, Long, Double, Float, Char or Boolean. This is down to how these types are treated when the code runs in the JVM. This means that properties of any of these types must be initialized when the property is defined, or in an initializer block.
 

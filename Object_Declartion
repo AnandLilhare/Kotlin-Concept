@@ -1,0 +1,174 @@
+Object_Declartion
+
+- There are times where you want to make sure that only a single instance of a given type can be created, such as if you want to use a single object to coordinate actions across an entire application. In these situations, you can use the object keyword to make an object declaration.
+
+- If you’re familiar with design patterns, an object declaration is the Kotlin equivalent of a Singleton.
+- An object declaration defines a class and creates an instance of it in a single statement.
+- Add an object declaration to a class to create a single instance of that type which belongs to the class.
+-A companion object can be used as the Kotlin equivalent to static methods in Java.
+-Any functions you add to a companion object are shared by all class instances.
+
+Object expressions
+An object expression is an expression that creates an anonymous object on the fly with no predefined type.
+
+- When prinitng a plain object declartion in kotlin, the string representation contains both its name and the hash of the object.
+
+- Just like data classes, you can mark an object declaration with the data modifier. This instruct the compiler to generate a number of function for your object.
+
+Differences between data object and data classes.
+
+While data object and data class declarations are often used together and have function, so that all runtime instance of a data object have the same hash code.
+
+1. NO copy() function: Because a data object declaration is intended to be used as singleton objects, no copy() function generated.
+
+2. NO componetN() function. Unlike a data class, a data object does not have any data properties. Since attampting to destructuring such an object without data properties would not make sense.
+
+
+What is difference between object and Companion objects in kotlin?
+
+In Kotlin, both object and companion object are used to define singletons, but they serve different purposes.
+
+Object:
+1. Singleton Instance: An object declaration creates a singleton instance of a class. It is used to define a single, globally accessible instance of the class.
+object MySingleton {
+    // Properties and methods
+}
+
+2. Can Extend Classes and Interfaces: An object can extend classes and implement interfaces, making it more versatile than a companion object.
+object MySingleton : SomeClass(), SomeInterface {
+    // Properties and methods
+}
+
+3.Can Have Initialization Code: An object can have initialization code that runs when the singleton is first accessed.
+object MySingleton {
+    init {
+        // Initialization code
+    }
+}
+
+Companion Object:
+1. Associated with a Class: A companion object is associated with the class in which it is defined. It's a way to define static members for a class.
+class MyClass {
+    companion object {
+        // Properties and methods
+    }
+}
+
+2. Can Access Private Members: A companion object can access private members of the class in which it is defined, allowing it to have more access than a regular object.
+class MyClass {
+    private val privateVariable = "I am private"
+
+    companion object {
+        fun accessPrivateVariable(instance: MyClass) {
+            println(instance.privateVariable)
+        }
+    }
+}
+
+3.Name Omitted: The name "Companion" is optional when accessing members of the companion object. It's implicitly available.
+MyClass.Companion.accessPrivateVariable(myInstance)
+// or
+MyClass.accessPrivateVariable(myInstance)
+
+In summary, both object and companion object are used to create singletons, but object creates a standalone singleton, while companion object is associated with a class and can access its private members. If you don't need to associate the singleton with a specific class or access private members of the class, you might prefer using a standalone object. If you need the association or access to private members, then use a companion object
+
+-------------
+
+Can you tell me real scenario  where should i use object and companion object?
+Use of object:
+Scenario: Global Logger
+object Logger {
+    fun log(message: String) {
+        println("[${System.currentTimeMillis()}] $message")
+    }
+}
+In this scenario, you want a global logging mechanism, and you don't need to associate it with a specific class. The Logger object provides a single, globally accessible instance for logging across your application
+Logger.log("This is a log message.")
+
+
+Use of companion object:
+Scenario: Factory Methods in a Class
+class Car(val brand: String, val model: String) {
+    
+    companion object {
+        fun createElectricCar(model: String): Car {
+            return Car("Electric", model)
+        }
+        
+        fun createPetrolCar(model: String): Car {
+            return Car("Petrol", model)
+        }
+    }
+}
+In this scenario, you have factory methods associated with the Car class. The companion object allows you to define these methods as static methods associated with the class itself. This makes the code more organized and semantically tied to the Car class.
+val electricCar = Car.createElectricCar("Tesla")
+val petrolCar = Car.createPetrolCar("Toyota")
+
+Scenario: Constants or Shared Resources
+class AppConfig {
+    companion object {
+        const val API_KEY = "your_api_key"
+        const val BASE_URL = "https://api.example.com"
+    }
+}
+
+Certainly! Let's explore real-world scenarios where you might choose to use object and companion object.
+
+Use of object:
+Scenario: Global Logger
+
+kotlin
+Copy code
+object Logger {
+    fun log(message: String) {
+        println("[${System.currentTimeMillis()}] $message")
+    }
+}
+In this scenario, you want a global logging mechanism, and you don't need to associate it with a specific class. The Logger object provides a single, globally accessible instance for logging across your application.
+
+kotlin
+Copy code
+Logger.log("This is a log message.")
+Use of companion object:
+Scenario: Factory Methods in a Class
+
+kotlin
+Copy code
+class Car(val brand: String, val model: String) {
+    
+    companion object {
+        fun createElectricCar(model: String): Car {
+            return Car("Electric", model)
+        }
+        
+        fun createPetrolCar(model: String): Car {
+            return Car("Petrol", model)
+        }
+    }
+}
+In this scenario, you have factory methods associated with the Car class. The companion object allows you to define these methods as static methods associated with the class itself. This makes the code more organized and semantically tied to the Car class.
+
+kotlin
+Copy code
+val electricCar = Car.createElectricCar("Tesla")
+val petrolCar = Car.createPetrolCar("Toyota")
+Scenario: Constants or Shared Resources
+
+kotlin
+Copy code
+class AppConfig {
+    companion object {
+        const val API_KEY = "your_api_key"
+        const val BASE_URL = "https://api.example.com"
+    }
+}
+In this scenario, you might have constants or shared resources related to the AppConfig. The companion object allows you to group these constants together and access them using the class name.
+val apiKey = AppConfig.API_KEY
+val baseUrl = AppConfig.BASE_URL
+
+General Considerations:
+Use object when you need a standalone singleton with no association to a specific class.
+
+Use companion object when you want to associate a singleton with a class, and you need access to private members of that class or when you want to organize static methods and constants related to the class.
+
+In both cases, the choice depends on the design and organization of your code. Consider the semantics of your use case and whether the singleton should be associated with a specific class or if it's a standalone entity.

@@ -1,0 +1,68 @@
+Enum Class
+
+- The most basic use case for enum classes is the implementation of type-safe enums
+- Each enum constant is an object. Enum constants are separated by commas
+- Each constant can declare their own anonymous classes with their corresponding methods, as well as with overriding base method.
+- All enum classes implement the Comparable ineterface by defualt. Contants in the enum class are defined in the natural order.
+- Enum classes in kotlin have synthetic properties and methods for listing the defined enum constants and getting an enum constant by its name.
+- The valueOf() method throw an IllegalArgumentException if the specified name does not match any of the enum constant defined in the class.
+- Every enum constant also has properties, name and ordinal for obtaning the name and postion(starting from 0) in the enum class declartion.
+- You can access the constant in an enum class in a generic way using the enumValues<T>() and enumValueOf<T>() function.
+
+
+What is differences between Enum and Seal class.
+
+Ans: In Kotlin, both enums and sealed classes are used to represent a restricted set of values, but they have some key differences.
+Enum
+1. Values: Enum classes are used to represent a fixed set of values, and each value is a unique instance of the enum class.
+enum class Color {
+    RED, GREEN, BLUE
+}
+
+2.Methods: Enum classes can have their own methods, and each value can override these methods.
+enum class Color {
+    RED {
+        override fun printValue() {
+            println("This is red")
+        }
+    },
+    GREEN {
+        override fun printValue() {
+            println("This is green")
+        }
+    },
+    BLUE {
+        override fun printValue() {
+            println("This is blue")
+        }
+    };
+
+    abstract fun printValue()
+}
+
+3.Properties: Enum classes can have properties associated with each value.
+enum class Color(val rgb: Int) {
+    RED(0xFF0000),
+    GREEN(0x00FF00),
+    BLUE(0x0000FF)
+}
+
+Seal classes:
+1. Inheritance: Sealed classes are used to represent a restricted hierarchy of classes. They can have subclasses, but all subclasses must be defined in the same file as the sealed class
+sealed class Result {
+    class Success(val data: String) : Result()
+    class Error(val message: String) : Result()
+}
+
+2. Openness: Sealed classes are abstract by default, and their subclasses must be final or sealed. This means that all possible subclasses must be known at compile time.
+sealed class Result {
+    class Success(val data: String) : Result()
+    class Error(val message: String) : Result()
+}
+
+3. Instance Creation: Unlike enum classes, sealed classes can have multiple instances of the same subclass. You can create multiple instances of a sealed class subclass.
+val success1 = Result.Success("Data1")
+val success2 = Result.Success("Data2")
+
+
+In summary, enum classes are used for a fixed set of values with unique instances, while sealed classes are used for representing a restricted hierarchy of classes with subclasses that are known at compile time. Both constructs offer ways to create restricted sets of types, but they serve different purposes.

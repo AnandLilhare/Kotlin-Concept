@@ -35,6 +35,13 @@ Q: Why does Kotlin take the opposite approach to Java?
 A: Because the open prefix makes it much more explicit as to which classes have been designed to be used as superclasses, and which properties and functions can be overridden. This approach corresponds to one of the principles from Joshua Bloch’s book Effective Java: “Design and document for inheritance or else prohibit it.”
 
 
+The rules for constructor in inheritance
+
+* if the derived class has a primary constructor, the base class can (an must)be initialized in that primary constructor according to its parameters.
+
+* if the derived class ha not primary constructor, then each secondary constructor has to initiaize the base type using the super keyword or it has to delgate to another constructor which does.
+
+
 The rules for overriding functions
 
 * The function parameters in the subclass must match those in the superclass.

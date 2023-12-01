@@ -1,0 +1,12 @@
+Nested and inner classes
+
+
+A nested class is a class that’s defined inside another class. This can be useful if you want to provide the outer class with extra functionality that’s outside its main purpose, or bring code closer to where it’s being used.
+
+- Note that you can’t access a nested class from an instance of the outer class without first creating a property of that type inside the outer class.
+
+-Another restriction is that a nested class doesn’t have access to an instance of the outer class, so it can’t access its members.
+
+- You can also use an interface with nesting.  All combinations of classes and interface are possible.
+- You can nest interface in classes, classes in interface, and interface in interface.
+- A nested class marked as inner can access the member function of its outer class. Inner classes carry a reference to an object of an outer class:

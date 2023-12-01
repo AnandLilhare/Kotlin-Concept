@@ -29,8 +29,12 @@ The common behavior defined by Any
 * toString(): String
   Returns a String message that represents the object. By default, this is the name of the class and some other number that we rarely care about.
 
-Data classes define componentN functions
-When you define a data class, the compiler automatically adds a set of functions to the class that you can use as an alternate way of accessing its object’s property values. These are known as componentN functions, where N represents the number of the property whose value you wish to retrieve (in order of declaration).
+Data classes define componentN functions:
+
+When you define a data class, the compiler automatically adds a set of functions to the class that you can use as an alternate way of accessing its object’s property values. These are known as componentN functions, where N represents the number of the property whose value you wish to retrieve (in order of declaration).These functions are used for destructuring declaration
+
+Note that these componentN() functions are automatically generated only for the properties declared in the primary constructor of the data class. If you add more properties or change the order of properties, the generated component functions will be differen
+
 
 If you wanted to retrieve the value of the object’s first property (its title property), you could do this by calling the object’s component1() function like this:
 
@@ -94,4 +98,7 @@ RULES FOR DATA CLASSES
 
 * Each parameter must be marked as val or var.
 
-*Data classes must not be open or abstract.
+* Data classes must not be open or abstract, sealed, or inner.
+* Data classes may extend other classes
+
+

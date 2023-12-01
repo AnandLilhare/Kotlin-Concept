@@ -1,0 +1,14 @@
+
+Sealed classes and interfaces
+
+- Sealed classes and interface represent restricted class hierarchies that provide more control over inheritance.
+- All direct subclasses of a sealed classes are know at compile time.
+- No other subclasses may appear outside of module and package within which the sealed class is defined.
+- Thus, each instance of sealed classes has type from a limited set that is known when this class is compiled.
+- For example, third-party clients can't extent your sealed class in their code.
+- In some sense, sealed classes are simillar to enum classes: the set of values for an enum type is also restricted, but each enum consist exists only as a single instance, whereas a subclass of a sealed class can have multiple instances, each with own state.
+- A sealed class is abstract by itself, it can not instantiated directly and can have absstract members.
+- Constructors of sealed classes can have one of two visibilites; protected(by default or private
+- Direct subclasses of sealed classes and interface must be declared in the same package.
+- Subclasses of sealed classes must have a proper qualified name. They can't be local nor anonymous objects.
+- enum classes can't extend a sealed class(as wellas any other class), but they can implement saled interface.

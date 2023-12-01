@@ -17,20 +17,23 @@ fun getDucks(breed: String): MutableList<Duck> {
 //Code to get Ducks for the specified breed
 }
 
-Covariant: 
+Covariant(out): 
 
 -If a generic type is covariant, it means that you can use a subtype in place of a supertype.
 -When we prefix a generic type with out, we say that the generic type is covariant. In other words, it means that a subtype can be used in place of a supertype.
 
+ex: Class c is covarieant in the parameter T, or th T is a covariant type parameter. You can think of c as being a producer of T's, and Not a consumer of T's
 
 -In general, a class or interface generic type may be prefixed with out if the class has functions that use it as a return type, or if the class has val properties of that type. You can’t, however, use out if the class has function parameters or var properties of that generic type.
 
 Note - Another way of thinking about this is that a generic type that’s prefixed with out can only be used in an “out” position, such as a function return type. It can’t, however, be used in an “in” position, so a function can’t receive a covariant type as a parameter value.
 
-Contravariant
+Contravariant(in)
 -------
 
 - If a generic type is contravariant, it means that you can use a supertype in place of a subtype. This is the opposite of covariance.
+
+- It can only be cunsumed and never produces.
 
 - When we prefix a generic type with in, we say that the generic type is contravariant. In other words, it means that a supertype can be used in place of a subtype.
 
@@ -57,9 +60,8 @@ Where possible, the compiler will infer the generic type.
 
 You can define a function that uses a generic type outside a class declaration, or one that uses a different generic type, for example:
 
-fun <T> listPet(): List<T>{
+fun <T> listPet(): List<T> {
 
-    ...
 
 }
 A generic type is invariant if it can only accept references of that specific type. Generic types are invariant by default.

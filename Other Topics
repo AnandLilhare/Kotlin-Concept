@@ -6,11 +6,6 @@ Other Topics:
 
 Kotlin has four visibility modifiers: public, private, protected and internal. Let’s see how these work.
 
-
-
-2. Enum classes
-An enum class lets you create a set of values that represent the only valid values for a variable.
-
 ----
 3. Sealed classes
 
@@ -37,32 +32,6 @@ Sealed classes to the rescue!
 
 Defination;
 A solution to this kind of problem is to use a sealed class. A sealed class is like a souped-up version of an enum class. It lets you restrict your class hierarchy to a specific set of subtypes, each one of which can define its own properties and functions. And unlike an enum class, you can create multiple instances of each type.
-
-
--------------
-5. Nested and inner classes
-
-A nested class is a class that’s defined inside another class. This can be useful if you want to provide the outer class with extra functionality that’s outside its main purpose, or bring code closer to where it’s being used.
-
-- Note that you can’t access a nested class from an instance of the outer class without first creating a property of that type inside the outer class.
-
--Another restriction is that a nested class doesn’t have access to an instance of the outer class, so it can’t access its members.
-
--If you want a nested class to be able to access the properties and functions defined by its outer class, you can do so by making it an inner class. 
-
---------
-6. Object declarations and expressions
-
-- There are times where you want to make sure that only a single instance of a given type can be created, such as if you want to use a single object to coordinate actions across an entire application. In these situations, you can use the object keyword to make an object declaration.
-
-- If you’re familiar with design patterns, an object declaration is the Kotlin equivalent of a Singleton.
-- An object declaration defines a class and creates an instance of it in a single statement.
-- Add an object declaration to a class to create a single instance of that type which belongs to the class.
--A companion object can be used as the Kotlin equivalent to static methods in Java.
--Any functions you add to a companion object are shared by all class instances.
-
-Object expressions
-An object expression is an expression that creates an anonymous object on the fly with no predefined type.
 
 -----
 

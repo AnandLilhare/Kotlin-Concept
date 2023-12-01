@@ -1,0 +1,12 @@
+Exception Classes
+
+- All exception classes in Kotlin inherit the Throwable class
+- Kotlin does not have checked the exception(These are the exceptions that are checked at compile time. If some code within a method throws a checked exception IOException, SQLException, etc)
+let's say IO operation 
+           try {
+               log.append(message)
+               }  catch (IOException e) {
+                //Must be safe
+               }
+And that's not good. Just take a look at Effective java: Don't ignore  exception
+- The throw expression has the type Nothing. This type has no value and is used to mark code location that can never be reached.

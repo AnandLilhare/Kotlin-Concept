@@ -1,0 +1,3 @@
+Extensions
+
+Kotlin provide the ability to extend a class or an interface with new functionality without having inherit from the class or use design pattern such a Decorator. This is done via special declarations called extensions.
