@@ -1,0 +1,9 @@
+Infix notation
+
+- Functions marked with the infix keyword can also be called using the infix notation (omitting the dot and the parentheses for the call). Infix functions must meet the following requirements:
+
+   1. They must be member functions or extension functions.
+   2. They must have a single parameter.
+   3. The parameter must not accept variable number of arguments and must have no default value.
+
+- Note that infix functions always require both the receiver and the parameter to be specified. When you're calling a method on the current receiver using the infix notation, use this explicitly. This is required to ensure unambiguous parsing.

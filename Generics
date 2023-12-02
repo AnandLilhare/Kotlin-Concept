@@ -2,6 +2,19 @@ Generics
 
 Things you can do with a generic class or interface
 
+
+In Kotlin, generics provide a way to create flexible and reusable functions, classes, and interfaces that can work with various types while ensuring type safety. They allow you to define functions or classes in a way that they can operate on any data type while maintaining compile-time type checks.
+
+fun <T> printItem(item: T) {
+    println(item)
+}
+
+// Usage
+printItem("Hello, world!") // Prints: Hello, world!
+printItem(10) // Prints: 10
+printItem(true) // Prints: true
+
+
 * Create an instance of a generified class.
 val duckList: MutableList<Duck>
 duckList = mutableListOf(Duck("Donald"), Duck("Daisy"), Duck("Daffy"))
@@ -28,6 +41,16 @@ ex: Class c is covarieant in the parameter T, or th T is a covariant type parame
 
 Note - Another way of thinking about this is that a generic type that’s prefixed with out can only be used in an “out” position, such as a function return type. It can’t, however, be used in an “in” position, so a function can’t receive a covariant type as a parameter value.
 
+interface Source<out T> {
+    fun get(): T
+}
+
+fun demo(strs: Source<String>) {
+    val objects: Source<Any> = strs // Allowed because of covariance
+    println(objects.get()) // We can safely get values from 'objects'
+}
+
+
 Contravariant(in)
 -------
 
@@ -38,6 +61,16 @@ Contravariant(in)
 - When we prefix a generic type with in, we say that the generic type is contravariant. In other words, it means that a supertype can be used in place of a subtype.
 
 Note: In other words, a generic type that’s prefixed with “in” can only be used in an “in” position, such as a function parameter value. It can’t be used in “out” positions.
+
+interface Sink<in T> {
+    fun put(value: T)
+}
+
+fun demo(intSink: Sink<Int>) {
+    val anySink: Sink<Any> = intSink // Allowed because of contravariance
+    anySink.put("Hello") // We can safely put values into 'anySink'
+}
+
 
 Invariant
 --------
@@ -69,3 +102,6 @@ A generic type is invariant if it can only accept references of that specific ty
 A generic type is covariant if you can use a subtype in place of a supertype. You specify that a type is covariant by prefixing it with out.
 
 A generic type is contravariant if you can use a supertype in place of a subtype. You specify that a type is contravariant by prefixing it with in.
+
+
+In real-life scenarios, covariance is useful when you primarily want to retrieve/read values from a generic type, contravariance is useful when you primarily want to put/write values into a generic type, and invariance is useful when you need strict type safety and want to prevent mixing different types within the generic type.
