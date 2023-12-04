@@ -73,16 +73,6 @@ fun main() {
 }
 
 - It is work when function is extension function or general function with single parameters.
----------------
-inline
-- Higher order functions can sometimes be slightly slower to run, but a lot of the time, you can improve their performance by prefixing the function with inline.
-- Its work with only High order function.
-- if you have multiple lambda parameter in the high order function then if you want you can make one of the parameter noninline parameter
-- You can't store reference of the high order function inline
-
-
-
-
 -------------
 
 Anonymous Function
