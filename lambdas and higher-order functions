@@ -18,6 +18,83 @@ ex: val calculation: (Int, Int) -> Unit = { x, y -> x + y }
 
 - A function that uses a lambda as a parameter or return value is known as a higher-order function.
 
+trailing lambdas:
+According to Kotlin convention, if the last parameter of a function is a function, then a lambda expression passed as the corresponding argument can be placed outside the parentheses:
+
+ex: val product = items.fold(1) { acc, e -> acc * e }
+
+What is closures in kotline
+In Kotlin, closures refer to a function or a lambda expression that captures and references variables from its surrounding lexical scope. Closures in Kotlin, like in many other programming languages, retain access to the variables declared in their enclosing scope even after the enclosing scope has finished execution.
+
+fun createPrinter(): () -> Unit {
+    var counter = 0
+    return {
+        println("Counter: ${counter++}")
+    }
+}
+
+fun main() {
+    val printer = createPrinter()
+    
+    printer() // Output: Counter: 0
+    printer() // Output: Counter: 1
+    printer() // Output: Counter: 2
+}
+Closures in Kotlin enable the lambda expressions or functions to retain and access the state of their surrounding context at the time of their creation. This feature is powerful as it allows creating functions that carry contextual information and can be executed later while retaining access to the variables that were in scope when they were defined.
+
+
+high order function
+In Kotlin, a higher-order function is a function that either takes functions as parameters, returns a function, or both. This concept is based on functional programming principles, where functions are treated as first-class citizens, allowing them to be passed around as values.
+
+Here are a few key points about higher-order functions in Kotlin:
+1.Takes functions as parameters: A higher-order function can accept other functions as arguments.
+fun higherOrderFunction(a: Int, b: Int, operation: (Int, Int) -> Int): Int {
+    return operation(a, b)
+}
+
+fun main() {
+    val resultSum = higherOrderFunction(5, 3) { x, y -> x + y }
+    val resultMultiply = higherOrderFunction(5, 3) { x, y -> x * y }
+
+    println("Sum: $resultSum") // Output: Sum: 8
+    println("Multiplication: $resultMultiply") // Output: Multiplication: 15
+}
+
+2. Returns a function: A higher-order function can also return a function as its result.
+fun createAdder(value: Int): (Int) -> Int {
+    return { x: Int -> value + x }
+}
+
+fun main() {
+    val add5 = createAdder(5)
+    val add10 = createAdder(10)
+
+    println("Adding 5 to 7 gives: ${add5(7)}") // Output: Adding 5 to 7 gives: 12
+    println("Adding 10 to 20 gives: ${add10(20)}") // Output: Adding 10 to 20 gives: 30
+}
+createAdder is a higher-order function that takes an integer value and returns a function that takes another integer and returns their sum.
+The createAdder function returns a lambda expression that captures the value parameter and adds it to the provided argument.
+When you call createAdder(5), it creates a function add5 that adds 5 to any given integer passed to it. Similarly, createAdder(10) creates a function add10 that adds 10 to any given integer passed to it.
+3. Both
+// Higher-order function that takes a function as a parameter and returns a function
+fun operateOnNumbers(a: Int, b: Int, operation: (Int, Int) -> Int): (Int) -> Int {
+    val result = operation(a, b)
+
+    // Return a function that takes an integer and performs an operation on it
+    return { value: Int -> operation(result, value) }
+}
+
+fun main() {
+    val addResult = operateOnNumbers(5, 3) { x, y -> x + y }
+    val multiplyResult = operateOnNumbers(5, 3) { x, y -> x * y }
+
+    println("Adding 8 to previous addition result gives: ${addResult(8)}") // Output: Adding 8 to previous addition result gives: 16
+    println("Multiplying by 4 to previous multiplication result gives: ${multiplyResult(4)}") // Output: Multiplying by 4 to previous multiplication result gives: 60
+}
+operateOnNumbers is a higher-order function that takes two integers (a and b) and a function (operation) that takes two integers and returns an integer.
+Inside operateOnNumbers, operation is performed on a and b to get a result.
+The higher-order function then returns a function that takes an integer value and performs the operation on the result obtained earlier and the value.
+In main(), operateOnNumbers is used to create two different functions (addResult and multiplyResult) based on different operations passed to it. These returned functions can then be used to perform further operations by passing additional values
 Question
 
 Q: Does the code
