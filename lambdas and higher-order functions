@@ -20,6 +20,7 @@ ex: val calculation: (Int, Int) -> Unit = { x, y -> x + y }
 
 Question
 
+
 Q: Does the code
    val x = { "Pow!" }
   assign the text “Pow!” to x?

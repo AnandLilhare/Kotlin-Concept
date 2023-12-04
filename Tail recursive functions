@@ -1,0 +1,23 @@
+Tail recursive functions
+
+
+For a function to be eligible for tail recursion optimization in Kotlin, it must satisfy the following conditions:
+
+The recursive call must be the last operation in the function:
+The recursive call should be the final operation before the function returns its result. This is a crucial requirement for the Kotlin compiler to optimize the recursion into an iterative loop.
+
+The result of the recursive call must be immediately returned:
+After the recursive call, the function should immediately return the result without performing any additional computations. This condition ensures that there is no pending work left to do after the recursive call.
+
+tailrec fun factorial(n: Int, accumulator: Long = 1): Long {
+    return if (n == 0) {
+        accumulator
+    } else {
+        // Recursive call is the last operation
+        factorial(n - 1, n * accumulator)
+        // No additional computation after the recursive call
+    }
+}
+In the example above, the recursive call to factorial is the last operation, and the result is immediately returned. This makes the function eligible for tail recursion optimization.
+
+It's important to note that not all recursive functions can be made tail-recursive. Some algorithms inherently involve operations that cannot satisfy these conditions. Additionally, the Kotlin compiler must support the optimization for the specific platform you are targeting. While many common cases are optimized, the optimization might not be applicable in certain scenarios or platforms.
